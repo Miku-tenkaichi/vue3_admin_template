@@ -20,4 +20,7 @@ import globalComponent from '@/components'
 //安装自定义插件
 app.use(globalComponent)
 
+//引入全局样式
+import '@/styles/index.scss'
+
 app.mount('#app')

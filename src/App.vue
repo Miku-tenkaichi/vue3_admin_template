@@ -8,8 +8,4 @@ console.log(a)
     </h1>
     <svg-icon name="phone" color="pink" width="100px" height="100px"></svg-icon>
 </template>
-<style scoped lang="less">
-html {
-    margin: 0;
-}
-</style>
+<style scoped lang="scss"></style>
