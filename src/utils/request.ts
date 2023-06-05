@@ -1,6 +1,6 @@
 import axios from 'axios'
 //@ts-ignore
-import { ElMessage } from 'element-plus/es/components/index.js'
+import { ElMessage } from 'element-plus'
 
 //创建axios实例，可以进行配置
 const request = axios.create({
