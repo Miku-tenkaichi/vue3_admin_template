@@ -1,7 +1,35 @@
 <script setup lang="ts">
 import { User, Lock } from '@element-plus/icons-vue'
-import { reactive } from 'vue'
-let loginForm = reactive({ userName: 'admin', password: '111111' })
+import { reactive, ref } from 'vue'
+//引入用户store
+import useUserStore from '@/store/modules/user'
+import { useRouter } from 'vue-router'
+import { ElNotification } from 'element-plus'
+//获取路由器
+let useStore = useUserStore()
+const $router = useRouter()
+//加载效果
+let loading = ref(false)
+let loginForm = reactive({ username: 'admin', password: '111111' })
+//登录按钮
+const login = async () => {
+    loading.value = true
+    try {
+        await useStore.userLogin(loginForm)
+        $router.push('/')
+        ElNotification({
+            type: 'success',
+            message: '登陆成功',
+        })
+        loading.value = false
+    } catch (error) {
+        ElNotification({
+            type: 'error',
+            message: (error as Error).message,
+        })
+        loading.value = false
+    }
+}
 </script>
 <template>
     <div class="login_container">
@@ -14,7 +42,7 @@ let loginForm = reactive({ userName: 'admin', password: '111111' })
                     <el-form-item>
                         <el-input
                             :prefix-icon="User"
-                            v-model="loginForm.userName"
+                            v-model="loginForm.username"
                         ></el-input>
                     </el-form-item>
                     <el-form-item>
@@ -26,7 +54,12 @@ let loginForm = reactive({ userName: 'admin', password: '111111' })
                         ></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button class="login_btn" type="primary">
+                        <el-button
+                            :loading="loading"
+                            class="login_btn"
+                            type="primary"
+                            @click="login"
+                        >
                             登录
                         </el-button>
                     </el-form-item>
@@ -60,6 +93,7 @@ let loginForm = reactive({ userName: 'admin', password: '111111' })
             font-size: 20px;
             margin: 20px 0;
         }
+
         .login_btn {
             width: 100%;
         }

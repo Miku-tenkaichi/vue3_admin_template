@@ -4,8 +4,6 @@ import { reqLogin } from './api/user'
 onMounted(() => {
     reqLogin({ username: 'admin', password: '111111' })
 })
-const a = 1
-console.log(a)
 </script>
 <template>
     <router-view></router-view>
